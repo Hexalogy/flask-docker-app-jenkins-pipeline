@@ -21,8 +21,8 @@ pipeline {
                 sh 'docker image tag $DOCKER_HUB_REPO:latest $DOCKER_HUB_REPO:$BUILD_NUMBER'
 
                 //  Pushing Image to Repository
-                sh 'docker push talha1995/test:$BUILD_NUMBER'
-                sh 'docker push talha1995/test:latest'
+                sh 'docker push efras/flask-cicd-pipeline:$BUILD_NUMBER'
+                sh 'docker push efras/flask-cicd-pipeline:latest'
 
                 echo "Image built and pushed to repository"
             }
