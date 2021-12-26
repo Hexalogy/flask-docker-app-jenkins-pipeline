@@ -14,17 +14,16 @@ pipeline {
                 sh 'cat config.py'
             }
         }
-        stage('Build') {
+       stage('Build') {
             steps {
-                //  Building new image
-                sh 'docker image build -t $DOCKER_HUB_REPO:latest .'
-                sh 'docker image tag $DOCKER_HUB_REPO:latest $DOCKER_HUB_REPO:$BUILD_NUMBER'
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_login') {
+                        def customImage = docker.build("$DOCKER_HUB_REPO:${env.BUILD_ID}")
 
-                //  Pushing Image to Repository
-                sh 'docker push efras/flask-cicd-pipeline:$BUILD_NUMBER'
-                sh 'docker push efras/flask-cicd-pipeline:latest'
-
-                echo "Image built and pushed to repository"
+                        /* Push the container to the custom Registry */
+                        customImage.push()
+                    }
+                }
             }
         }
         stage('Deploy') {
