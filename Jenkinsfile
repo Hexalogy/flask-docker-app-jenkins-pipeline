@@ -17,7 +17,7 @@ pipeline {
        stage('Build') {
             steps {
                 script {
-                    app = docker.build($DOCKER_HUB_REPO)
+                    app = docker.build("efras/flask-cicd-pipeline")
                     app.inside {
                         sh 'echo $(curl localhost:8080)'
                     }
