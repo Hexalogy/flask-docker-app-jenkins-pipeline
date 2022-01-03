@@ -27,8 +27,6 @@ pipeline {
                         app.push("latest")
                     }
                 }
-                
-                echo "Image built and pushed to repository"
             }
         }
         stage('Deploy') {
