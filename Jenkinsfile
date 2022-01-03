@@ -14,13 +14,13 @@ pipeline {
                 sh 'cat config.py'
             }
         }
-       stage('Build') {
+       stage('Build & Push') {
             steps {
                 script {
                     app = docker.build("efras/flask-cicd-pipeline")
-                    app.inside {
+                    /* app.inside {
                         sh 'echo $(curl localhost:8080)'
-                    }
+                    } */
                     
                     docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_login') {
                         app.push("${env.BUILD_NUMBER}")
