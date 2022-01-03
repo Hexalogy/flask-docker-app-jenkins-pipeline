@@ -21,11 +21,6 @@ pipeline {
                     app.inside {
                         sh 'echo $(curl localhost:8080)'
                     }
-
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_login') {
-                        app.push("${env.BUILD_NUMBER}")
-                        app.push("latest")
-                    }
                 }
             }
         }
