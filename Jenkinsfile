@@ -39,7 +39,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script{
-                    sh 'BUILD_NUMBER = ${BUILD_NUMBER}'
+                    sh 'BUILD_NUMBER = ${env.BUILD_NUMBER}'
                     if (BUILD_NUMBER == "1") {
                         sh 'docker run --name $CONTAINER_NAME -d -p 5000:5000 $DOCKER_HUB_REPO'
                     }
